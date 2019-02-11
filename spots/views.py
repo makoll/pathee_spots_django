@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
 
+from .forms import SpotForm
 from .models import Spot
 
 
@@ -28,3 +29,10 @@ def register(request, spot_id):
             setattr(spot, key, value)
     spot.save()
     return HttpResponseRedirect(reverse('spots:detail', args=(spot.id, )))
+
+
+class CreateView(generic.CreateView):
+    model = Spot
+    form_class = SpotForm
+    template_name = 'spots/create.html'
+    success_url = '/spots'
