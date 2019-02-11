@@ -1,19 +1,22 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.views import generic
 
 from .models import Spot
 
 
-def index(request):
-    spot_list = Spot.objects.order_by('-id')[:5]
-    context = {'spot_list': spot_list}
-    return render(request, 'spots/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'spots/index.html'
+    context_object_name = 'spot_list'
+
+    def get_queryset(self):
+        return Spot.objects.order_by('-id')[:5]
 
 
-def detail(request, spot_id):
-    spot = get_object_or_404(Spot, pk=spot_id)
-    return render(request, 'spots/detail.html', {'spot': spot})
+class DetailView(generic.DetailView):
+    model = Spot
+    template_name = 'spots/detail.html'
 
 
 def register(request, spot_id):
