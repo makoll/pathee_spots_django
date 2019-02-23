@@ -17,4 +17,5 @@ class SpotForm(forms.ModelForm):
             'description',
             'business_status',
             'business_status_confirm_time',
+            'business_hour',
         )
