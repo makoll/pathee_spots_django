@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -36,3 +38,9 @@ class CreateView(generic.CreateView):
     form_class = SpotForm
     template_name = 'spots/create.html'
     success_url = '/spots'
+
+    def form_valid(self, form):
+        self.object = form.save(False)
+        self.object.published_time = datetime.today()
+        self.object.save()
+        return super().form_valid(form)

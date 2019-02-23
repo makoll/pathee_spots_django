@@ -20,6 +20,7 @@ class Spot(models.Model):
         max_length=255, choices=[(tag, tag.value) for tag in BusinessStatus], blank=True, null=True)
     business_status_confirm_time = models.DateTimeField(blank=True, null=True)
     business_hour = models.TextField(default=None, blank=True)
+    published_time = models.DateTimeField(blank=True, null=True)
 
     def __str__(self, blank=True):
         return f'{self.name} : {self.branch}'
