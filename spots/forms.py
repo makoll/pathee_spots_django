@@ -11,6 +11,8 @@ class SpotForm(forms.ModelForm):
             'name',
             'name_sub',
             'branch',
+            'lat',
+            'lng',
             'address',
             'building',
             'phone',
