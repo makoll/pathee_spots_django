@@ -25,3 +25,9 @@ class Spot(models.Model):
 
     def __str__(self, blank=True):
         return f'{self.name} : {self.branch}'
+
+
+class Url(models.Model):
+    order = models.IntegerField('順番')
+    url = models.TextField('URL')
+    spot = models.ForeignKey(Spot, verbose_name='紐づくスポット', on_delete=models.CASCADE)
