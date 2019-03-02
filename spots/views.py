@@ -44,3 +44,16 @@ class CreateView(generic.CreateView):
         self.object.published_time = datetime.today()
         self.object.save()
         return super().form_valid(form)
+
+
+class UpdateView(generic.UpdateView):
+    model = Spot
+    form_class = SpotForm
+    template_name = 'spots/update.html'
+    success_url = '/spots'
+
+    def form_valid(self, form):
+        self.object = form.save(False)
+        self.object.published_time = datetime.today()
+        self.object.save()
+        return super().form_valid(form)
