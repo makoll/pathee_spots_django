@@ -1,31 +1,12 @@
 from enum import Enum
-import re
 
-from django.core.exceptions import ValidationError
+from django.core.validators import (
+    MaxValueValidator,
+    MinValueValidator,
+    RegexValidator,
+    URLValidator,
+)
 from django.db import models
-from django.utils.translation import gettext_lazy
-
-
-def validate_lat(value):
-    if value < -90 or 90 < value:
-        raise ValidationError(gettext_lazy(f"{value}は緯度として不適切です"))
-
-
-def validate_lng(value):
-    if value < -180 or 180 < value:
-        raise ValidationError(gettext_lazy(f"{value}は経度として不適切です"))
-
-
-def validate_phone(value):
-    rep = r"^0\d{1,2}-\d{4}-\d{4}$"
-    if re.match(rep, value) is None:
-        raise ValidationError(gettext_lazy(f"{value}は電話番号として不適切です"))
-
-
-def validate_url(value):
-    rep = r"^https?(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)$"
-    if re.match(rep, value) is None:
-        raise ValidationError(gettext_lazy(f"{value}はURLとして不適切です"))
 
 
 class BusinessStatus(Enum):
@@ -42,7 +23,7 @@ class Spot(models.Model):
         decimal_places=6,
         default=None,
         blank=True,
-        validators=[validate_lat],
+        validators=[MaxValueValidator(90), MinValueValidator(-90)],
     )
     lng = models.DecimalField(
         "経度",
@@ -50,12 +31,20 @@ class Spot(models.Model):
         decimal_places=6,
         default=None,
         blank=True,
-        validators=[validate_lng],
+        validators=[MaxValueValidator(180), MinValueValidator(-180)],
     )
     address = models.CharField(max_length=255, default=None, blank=True)
     building = models.CharField(max_length=255, default=None, blank=True)
     phone = models.CharField(
-        max_length=255, default=None, blank=True, validators=[validate_phone]
+        max_length=255,
+        default=None,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex=r"^0\d{1,2}-\d{4}-\d{4}$",
+                message="電話番号として不適切です。フォーマット: 0x(x)-xxxx-xxxx",
+            )
+        ],
     )
     description = models.TextField(default=None, blank=True)
     business_status = models.CharField(
@@ -74,5 +63,5 @@ class Spot(models.Model):
 
 class Url(models.Model):
     order = models.IntegerField("順番")
-    url = models.TextField("URL", validators=[validate_url])
+    url = models.TextField("URL", validators=[URLValidator()])
     spot = models.ForeignKey(Spot, verbose_name="紐づくスポット", on_delete=models.CASCADE)
