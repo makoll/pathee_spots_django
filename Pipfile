@@ -6,12 +6,12 @@ verify_ssl = true
 [dev-packages]
 flake8 = "*"
 mypy = "*"
+isort = "*"
+black = "*"
 
 [packages]
 mysqlclient = "*"
 Django = ">=2.0.1"
-flake8 = "*"
-isort = "*"
 
 [requires]
 python_version = "3.7"
