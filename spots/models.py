@@ -1,11 +1,6 @@
 from enum import Enum
 
-from django.core.validators import (
-    MaxValueValidator,
-    MinValueValidator,
-    RegexValidator,
-    URLValidator,
-)
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, URLValidator
 from django.db import models
 
 
@@ -39,19 +34,11 @@ class Spot(models.Model):
         max_length=255,
         default=None,
         blank=True,
-        validators=[
-            RegexValidator(
-                regex=r"^0\d{1,2}-\d{4}-\d{4}$",
-                message="電話番号として不適切です。フォーマット: 0x(x)-xxxx-xxxx",
-            )
-        ],
+        validators=[RegexValidator(regex=r"^0\d{1,2}-\d{4}-\d{4}$", message="電話番号として不適切です。フォーマット: 0x(x)-xxxx-xxxx")],
     )
     description = models.TextField(default=None, blank=True)
     business_status = models.CharField(
-        max_length=255,
-        choices=[(tag, tag.value) for tag in BusinessStatus],
-        blank=True,
-        null=True,
+        max_length=255, choices=[(tag, tag.value) for tag in BusinessStatus], blank=True, null=True
     )
     business_status_confirm_time = models.DateTimeField(blank=True, null=True)
     business_hour = models.TextField(default=None, blank=True)

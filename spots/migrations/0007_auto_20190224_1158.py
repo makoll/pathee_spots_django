@@ -5,19 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('spots', '0006_spot_published_time'),
-    ]
+    dependencies = [("spots", "0006_spot_published_time")]
 
     operations = [
         migrations.AddField(
-            model_name='spot',
-            name='lat',
-            field=models.DecimalField(blank=True, decimal_places=6, default=None, max_digits=8, verbose_name='緯度'),
+            model_name="spot",
+            name="lat",
+            field=models.DecimalField(blank=True, decimal_places=6, default=None, max_digits=8, verbose_name="緯度"),
         ),
         migrations.AddField(
-            model_name='spot',
-            name='lng',
-            field=models.DecimalField(blank=True, decimal_places=6, default=None, max_digits=9, verbose_name='経度'),
+            model_name="spot",
+            name="lng",
+            field=models.DecimalField(blank=True, decimal_places=6, default=None, max_digits=9, verbose_name="経度"),
         ),
     ]

@@ -5,13 +5,9 @@ from .models import Spot, Url
 
 
 class ModelFormWithFormSetMixin:
-
     def __init__(self, *args, **kwargs):
         super(ModelFormWithFormSetMixin, self).__init__(*args, **kwargs)
-        self.formset = self.formset_class(
-            instance=self.instance,
-            data=self.data if self.is_bound else None,
-        )
+        self.formset = self.formset_class(instance=self.instance, data=self.data if self.is_bound else None)
 
     def is_valid(self):
         return super(ModelFormWithFormSetMixin, self).is_valid() and self.formset.is_valid()
@@ -23,28 +19,21 @@ class ModelFormWithFormSetMixin:
 
 
 class UrlForm(ModelForm):
-
     class Meta:
         model = Url
-        fields = ('url',)
-        widgets = {'url': TextInput}
+        fields = ("url",)
+        widgets = {"url": TextInput}
 
     def save(self, commit=True):
         instance = super(UrlForm, self).save(commit=False)
-        instance.order = self.cleaned_data.get('ORDER')
+        instance.order = self.cleaned_data.get("ORDER")
         if commit:
             instance.save()
         return instance
 
 
 UrlFormSet = inlineformset_factory(
-    parent_model=Spot,
-    model=Url,
-    form=UrlForm,
-    fields=('url',),
-    max_num=1,
-    can_order=True,
-    can_delete=False,
+    parent_model=Spot, model=Url, form=UrlForm, fields=("url",), max_num=1, can_order=True, can_delete=False
 )
 
 
@@ -55,16 +44,16 @@ class SpotForm(ModelFormWithFormSetMixin, ModelForm):
     class Meta:
         model = Spot
         fields = (
-            'name',
-            'name_sub',
-            'branch',
-            'lat',
-            'lng',
-            'address',
-            'building',
-            'phone',
-            'description',
-            'business_status',
-            'business_status_confirm_time',
-            'business_hour',
+            "name",
+            "name_sub",
+            "branch",
+            "lat",
+            "lng",
+            "address",
+            "building",
+            "phone",
+            "description",
+            "business_status",
+            "business_status_confirm_time",
+            "business_hour",
         )

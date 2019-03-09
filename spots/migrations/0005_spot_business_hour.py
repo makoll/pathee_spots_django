@@ -5,14 +5,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('spots', '0004_auto_20190203_2348'),
-    ]
+    dependencies = [("spots", "0004_auto_20190203_2348")]
 
     operations = [
-        migrations.AddField(
-            model_name='spot',
-            name='business_hour',
-            field=models.TextField(blank=True, default=None),
-        ),
+        migrations.AddField(model_name="spot", name="business_hour", field=models.TextField(blank=True, default=None))
     ]

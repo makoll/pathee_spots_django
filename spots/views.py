@@ -10,16 +10,16 @@ from .models import Spot
 
 
 class IndexView(generic.ListView):
-    template_name = 'spots/index.html'
-    context_object_name = 'spot_list'
+    template_name = "spots/index.html"
+    context_object_name = "spot_list"
 
     def get_queryset(self):
-        return Spot.objects.order_by('-id')[:5]
+        return Spot.objects.order_by("-id")[:5]
 
 
 class DetailView(generic.DetailView):
     model = Spot
-    template_name = 'spots/detail.html'
+    template_name = "spots/detail.html"
 
 
 def register(request, spot_id):
@@ -30,14 +30,14 @@ def register(request, spot_id):
                 value = None
             setattr(spot, key, value)
     spot.save()
-    return HttpResponseRedirect(reverse('spots:detail', args=(spot.id, )))
+    return HttpResponseRedirect(reverse("spots:detail", args=(spot.id,)))
 
 
 class CreateView(generic.CreateView):
     model = Spot
     form_class = SpotForm
-    template_name = 'spots/create.html'
-    success_url = '/spots'
+    template_name = "spots/create.html"
+    success_url = "/spots"
 
     def form_valid(self, form):
         self.object = form.save(False)
@@ -49,8 +49,8 @@ class CreateView(generic.CreateView):
 class UpdateView(generic.UpdateView):
     model = Spot
     form_class = SpotForm
-    template_name = 'spots/update.html'
-    success_url = '/spots'
+    template_name = "spots/update.html"
+    success_url = "/spots"
 
     def form_valid(self, form):
         self.object = form.save(False)

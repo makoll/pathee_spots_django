@@ -6,54 +6,36 @@ import spots.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('spots', '0001_initial'),
-    ]
+    dependencies = [("spots", "0001_initial")]
 
     operations = [
         migrations.AlterField(
-            model_name='spot',
-            name='address',
-            field=models.CharField(blank=True, default=None, max_length=255),
+            model_name="spot", name="address", field=models.CharField(blank=True, default=None, max_length=255)
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='branch',
-            field=models.CharField(blank=True, default=None, max_length=255),
+            model_name="spot", name="branch", field=models.CharField(blank=True, default=None, max_length=255)
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='building',
-            field=models.CharField(blank=True, default=None, max_length=255),
+            model_name="spot", name="building", field=models.CharField(blank=True, default=None, max_length=255)
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='business_status',
-            field=models.CharField(blank=True, choices=[(spots.models.BusinessStatus('Closed'), 'Closed')], max_length=255),
+            model_name="spot",
+            name="business_status",
+            field=models.CharField(
+                blank=True, choices=[(spots.models.BusinessStatus("Closed"), "Closed")], max_length=255
+            ),
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='business_status_confirm_time',
-            field=models.DateTimeField(blank=True),
+            model_name="spot", name="business_status_confirm_time", field=models.DateTimeField(blank=True)
+        ),
+        migrations.AlterField(model_name="spot", name="description", field=models.TextField(blank=True, default=None)),
+        migrations.AlterField(
+            model_name="spot", name="name", field=models.CharField(blank=True, default=None, max_length=255)
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='description',
-            field=models.TextField(blank=True, default=None),
+            model_name="spot", name="name_sub", field=models.CharField(blank=True, default=None, max_length=255)
         ),
         migrations.AlterField(
-            model_name='spot',
-            name='name',
-            field=models.CharField(blank=True, default=None, max_length=255),
-        ),
-        migrations.AlterField(
-            model_name='spot',
-            name='name_sub',
-            field=models.CharField(blank=True, default=None, max_length=255),
-        ),
-        migrations.AlterField(
-            model_name='spot',
-            name='phone',
-            field=models.CharField(blank=True, default=None, max_length=255),
+            model_name="spot", name="phone", field=models.CharField(blank=True, default=None, max_length=255)
         ),
     ]
