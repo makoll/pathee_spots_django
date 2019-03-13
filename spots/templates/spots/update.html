@@ -4,7 +4,7 @@
 
 <h1>スポット更新 (PK: {{ form.instance.pk }})</h1>
 
-    <form method="post">
+<form method="post">
     {% csrf_token %}
 
     <table>
@@ -12,6 +12,6 @@
         {{ form.formset.as_table }}
     </table>
     <button type="submit">save</button>
-    </form>
+</form>
 
 {% endblock %}
