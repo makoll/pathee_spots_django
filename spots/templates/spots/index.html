@@ -1,9 +1,25 @@
+{% extends "spots/base.html" %}
+
+{% block content %}
+<h1>スポットレジスター</h1>
+
+<form method="get">
+    {% csrf_token %}
+
+    <table>
+        {{ search_form.as_table }}
+    </table>
+    <button type="submit">検索</button>
+</form>
+
 {% if spot_list %}
-    <ul>
+<ul>
     {% for spot in spot_list %}
-        <li><a href="{% url 'spots:update' spot.id %}">{{ spot }}</a></li>
+    <li><a href="{% url 'spots:update' spot.id %}">{{ spot }}</a></li>
     {% endfor %}
-    </ul>
+</ul>
 {% else %}
-    <p>No spots are available.</p>
+<p>No spots are available.</p>
 {% endif %}
+
+{% endblock %}

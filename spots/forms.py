@@ -1,7 +1,8 @@
+from django import forms
 from django.forms import ModelForm, inlineformset_factory
 from django.forms.widgets import TextInput
 
-from .models import Spot, Url
+from .models import BusinessStatus, Spot, Url
 
 
 class ModelFormWithFormSetMixin:
@@ -57,3 +58,21 @@ class SpotForm(ModelFormWithFormSetMixin, ModelForm):
             "business_status_confirm_time",
             "business_hour",
         )
+
+
+business_status_choices = [(tag.name, tag.value) for tag in BusinessStatus]
+business_status_choices.insert(0, (None, "-" * 10))
+
+
+class SearchForm(forms.Form):
+
+    id = forms.DecimalField(initial="", label="スポットID", required=False)
+    name = forms.CharField(initial="", label="名前", required=False)
+    branch = forms.CharField(initial="", label="支店名", required=False)
+    business_status = forms.ChoiceField(initial="", label="ステータス", required=False, choices=business_status_choices)
+    published_time = forms.DateField(
+        initial="",
+        label="公開時間",
+        required=False,
+        widget=forms.SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
+    )
