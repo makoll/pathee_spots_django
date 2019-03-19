@@ -62,6 +62,8 @@ class SpotForm(ModelFormWithFormSetMixin, ModelForm):
 
 business_status_choices = [(tag.name, tag.value) for tag in BusinessStatus]
 business_status_choices.insert(0, (None, "-" * 10))
+order_choices = (("id", "id"), ("published_time", "published_time"))
+order_direction_choices = (("", "昇順"), ("-", "降順"))
 
 
 class SearchForm(forms.Form):
@@ -76,3 +78,5 @@ class SearchForm(forms.Form):
         required=False,
         widget=forms.SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day")),
     )
+    order = forms.ChoiceField(initial="id", label="ソート項目", widget=forms.RadioSelect, choices=order_choices)
+    order_direction = forms.ChoiceField(initial="-", label="ソート方向", widget=forms.RadioSelect, choices=order_direction_choices)

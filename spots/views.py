@@ -24,6 +24,10 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
 
+        default_display_count = 20
+
+        spots = Spot.objects
+
         params = self.request.GET
         search_param_keys = (
             "id",
@@ -35,10 +39,6 @@ class IndexView(generic.ListView):
             "published_time_day",
         )
         search_params = {k: params[k] for k in search_param_keys if k in params}
-        if not search_params:
-            return Spot.objects.order_by("-id")[:5]
-
-        spots = Spot.objects
 
         id = search_params.get("id")
         if id:
@@ -65,7 +65,17 @@ class IndexView(generic.ListView):
             next_date = date + timedelta(days=1)
             spots = spots.filter(published_time__gte=date, published_time__lte=next_date)
 
-        return spots.order_by("-id")[:5]
+        order = params.get("order")
+        if not order:
+            order = "id"
+
+        order_direction = params.get("order_direction")
+        if not order_direction:
+            order_direction = ""
+
+        display_count = default_display_count
+
+        return spots.order_by(f"{order_direction}{order}")[:display_count]
 
 
 class DetailView(generic.DetailView):
