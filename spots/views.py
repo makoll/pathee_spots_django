@@ -17,7 +17,22 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        search_form = SearchForm()
+        params = self.request.GET
+        search_param_keys = (
+            "id",
+            "name",
+            "branch",
+            "business_status",
+        )
+        search_params = {k: params[k] for k in search_param_keys if k in params}
+
+        published_time_year = params.get("published_time_year")
+        published_time_month = params.get("published_time_month")
+        published_time_day = params.get("published_time_day")
+        if published_time_year and published_time_month and published_time_day:
+            search_params["published_time"] = datetime(int(published_time_year), int(published_time_month), int(published_time_day))
+
+        search_form = SearchForm(initial=search_params)
         context["search_form"] = search_form
 
         return context
