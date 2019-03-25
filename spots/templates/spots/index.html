@@ -2,7 +2,17 @@
 
 {% block content %}
 <h1>スポットレジスター</h1>
+<br>
+<!--CSSで行間開ける-->
 
+<section>
+    <h2>新規作成</h2>
+    <a href="{% url 'spots:create' %}">新規作成画面へ</a>
+</section>
+<br><br>
+<!--CSSで行間開ける-->
+
+<section>
 <h2>検索条件</h2>
 <form method="get">
     {% csrf_token %}
@@ -12,6 +22,7 @@
     </table>
     <button type="submit">検索</button>
 </form>
+</section>
 <br><br>
 <!--CSSで行間開ける-->
 
