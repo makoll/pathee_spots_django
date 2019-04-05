@@ -1,0 +1,50 @@
+{% load static %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'spots/detail.css' %}"> -->
+
+<h1>スポット情報</h1>
+
+<h2>{{ spot.name }}</h2>
+
+<table>
+
+    <div>
+        <label>ID: {{ spot.id }}</label>
+    </div>
+    <div>
+        <label for="name">店舗名</label>
+        <span>{{ spot.name }}</span>
+    </div>
+    <div>
+        <label for="name_sub">読み仮名</label>
+        <span>{{ spot.name_sub }}</span>
+    </div>
+    <div>
+        <label for="branch">支店名</label>
+        <span>{{ spot.branch }}</span>
+    </div>
+    <div>
+        <label for="address">住所</label>
+        <span>{{ spot.address }}</span>
+    </div>
+    <div>
+        <label for="building">ビル名</label>
+        <span>{{ spot.building }}</span>
+    </div>
+    <div>
+        <label for="phone">電話番号</label>
+        <span>{{ spot.phone }}</span>
+    </div>
+    <div>
+        <label for="description">店舗サマリー</label>
+        <span>{{ spot.description }}</span>
+    </div>
+    <div>
+        <label for="business_status">店舗状態</label>
+        <span>{{ spot.business_status | default_if_none:'' }}</span>
+    </div>
+    <div>
+        <label for="business_status_confirm_time">状態確認日</label>
+        <span>{{ spot.business_status_confirm_time | default_if_none:'' }}</span>
+    </div>
+
+</table>
